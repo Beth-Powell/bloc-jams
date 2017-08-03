@@ -16,7 +16,6 @@ body {
 
 }
 
-
 .navbar {
   position: relative;
   padding: 0.5rem;
@@ -27,40 +26,38 @@ body {
 .navbar .logo {
   position: relative;
   left: 2rem;
-  cursor:pointer; /* produces the finger-pointer icon when you hover over the logo */
+  cursor: pointer;  /* produces the finger-pointer icon when you hover over the logo */
 }
 
-.navbar .links-container{
-  display: table;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100px;
-  color: white;
+.navbar .links-container {
+display: table;
+position: absolute;
+top: 0;
+right: 0;
+height: 100px;
+color: white;
 }
 
 .links-container .navbar-link {
-     display: table-cell;
-     position: relative;
-     height: 100%;
-     padding-left: 1rem;
-     padding-right: 1rem;
-     /* #3 */
-     vertical-align: middle;
-     color: white;
-     font-size: 0.625rem;
-     letter-spacing: 0.05rem;
-     font-weight: 700;
-     text-transform: uppercase;
-     /* #4 */
-     text-decoration: none;
-     cursor: pointer;
- }
+display: table-cell;
+position: relative;
+height: 100%;
+padding-left: 1rem;
+padding-right: 1rem;
+/* #3 */
+vertical-align: middle;
+color: white;
+font-size: 0.625rem;
+letter-spacing: 0.05rem;
+font-weight: 700;
+text-transform: uppercase;
+text-decoration: none;
+cursor: pointer;
+}
 
-   /* #5 */
- .links-container .navbar-link:hover {
-     color: rgb(233,50,117);
- }
+.links-container .navbar-link:hover {
+color: rgb(233,50,117);
+}
 
 .container {
   margin: 0 auto;
