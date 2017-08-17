@@ -6,8 +6,11 @@ var revealPoint = function(){
     points[i].style.msTransform = "scaleX(1) translateY(0)";
     points[i].style.WebkitTransform = "scaleX(1) translateY(0)";
   }
-
-       revealPoint();
-
-
 };
+revealPoint();
+
+window.onload = function(){
+  window.addEventListener('scroll', function(event){
+    console.log(event);
+  });
+}
