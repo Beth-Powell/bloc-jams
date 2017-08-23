@@ -1,12 +1,7 @@
 var pointsArray = document.getElementsByClassName('point');
-<<<<<<< HEAD
-=======
 
 var animatePoints = function(points) {
->>>>>>> checkpoint9-assignment
 
-var animatePoints = function(points) {
-   
   var revealPoint = function(index){
     points[index].style.opacity = 1;
     points[index].style.transform = "scaleX(1) translateY(0)";
