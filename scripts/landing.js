@@ -1,4 +1,9 @@
 var pointsArray = document.getElementsByClassName('point');
+<<<<<<< HEAD
+=======
+
+var animatePoints = function(points) {
+>>>>>>> checkpoint9-assignment
 
 var animatePoints = function(points) {
    
