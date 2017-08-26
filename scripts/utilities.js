@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 var animatePoints = function() {
   var points = document.getElementsByClassName('point');
 =======
@@ -18,3 +19,13 @@ var animatePoints = function(points) {
       }
       forEach(revealPoint, index)
 };
+=======
+//var pointsArray = document.getElementsByClassName('point');
+
+//var animatePoints = function(points) {
+function forEach(points, callBackFn){
+  for (var i=0; i<points.length; i++){
+     callBackFn(points[i]);
+  }
+}
+>>>>>>> checkpoint9-assignment
