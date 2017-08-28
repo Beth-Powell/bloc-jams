@@ -1,12 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 var animatePoints = function() {
   var points = document.getElementsByClassName('point');
-=======
+
 var pointsArray = document.getElementsByClassName('point');
 
 var animatePoints = function(points) {
->>>>>>> checkpoint9-assignment
+
 
   function revealPoint(){
     points[index].style.opacity = 1;
@@ -19,7 +17,7 @@ var animatePoints = function(points) {
       }
       forEach(revealPoint, index)
 };
-=======
+
 //var pointsArray = document.getElementsByClassName('point');
 
 //var animatePoints = function(points) {
@@ -28,4 +26,3 @@ function forEach(points, callBackFn){
      callBackFn(points[i]);
   }
 }
->>>>>>> checkpoint9-assignment
