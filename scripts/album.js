@@ -27,6 +27,20 @@ var albumPicasso = {
          { title: 'Wrong phone number', duration: '2:15'}
      ]
  };
+ var albumTesla = {
+     title: 'It''s Electric',
+     artist: 'Nikola Tesla',
+     label: 'AC',
+     year: '1890',
+     albumArtUrl: 'assets/images/album_covers/N_Tesla.jpg',
+     songs: [
+         { title: 'How Shocking!', duration: '2:01' },
+         { title: 'Alternating Current', duration: '3:01' },
+         { title: 'Switching Back and Forth', duration: '4:21'},
+         { title: 'Being Direct Can Hurt You', duration: '1:14' },
+         { title: 'Wireless is the Future', duration: '2:15'}
+     ]
+ };
 
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
@@ -63,3 +77,13 @@ var albumPicasso = {
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
  };
+
+ window.addEventListener('onclick', function(){
+   if(i=0; i<setCurrentAlbum.length; i++){
+     setCurrentAlbum[i];
+   }
+}
+
+
+
+   }
