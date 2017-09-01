@@ -28,7 +28,7 @@ var albumPicasso = {
      ]
  };
  var albumTesla = {
-     title: 'It''s Electric',
+     title: 'It\'s Electric',
      artist: 'Nikola Tesla',
      label: 'AC',
      year: '1890',
@@ -59,7 +59,7 @@ var albumPicasso = {
      var albumTitle = document.getElementsByClassName('album-view-title')[0];
      var albumArtist = document.getElementsByClassName('album-view-artist')[0];
      var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
+     albumImage = document.getElementsByClassName('album-cover-art')[0];
      var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
      albumTitle.firstChild.nodeValue = album.title;
@@ -73,17 +73,16 @@ var albumPicasso = {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
  };
-
+ var albumImage;
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+     var albums = [albumPicasso, albumMarconi, albumTesla];
+     var albumIndex = 0;
+     albumImage.addEventListener('click', function(){
+       albumIndex++;
+       if(albumIndex === albums.length){
+         albumIndex = 0;
+       }
+       setCurrentAlbum(albums[albumIndex]);
+     })
  };
-
- window.addEventListener('onclick', function(){
-   if(i=0; i<setCurrentAlbum.length; i++){
-     setCurrentAlbum[i];
-   }
-}
-
-
-
-   }
