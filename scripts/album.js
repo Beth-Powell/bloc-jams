@@ -148,15 +148,12 @@ var currentlyPlayingSong = null;
       if (event.target.parentElement.className === 'album-view-song-item') {
 
         var songItem = getSongItem(event.target);
-+
-+            if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
-+                songItem.innerHTML = playButtonTemplate;
-+            }
+
+            if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
+                songItem.innerHTML = playButtonTemplate;
+            }
       }
     });
-}
-
-
     for(var i=0; i<songRows.length; i++){
       songRows[i].addEventListener('mouseleave',function(event){
 
@@ -172,6 +169,10 @@ var currentlyPlayingSong = null;
         clickHandler(event.target);
       });
     }
+}
+
+
+
 
 
 
