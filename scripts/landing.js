@@ -13,18 +13,23 @@ var animatePoints = function(points){
 
 }
 
-window.onload = function(){
-  if(window.innerHeight > 950){
-         animatePoints(pointsArray);
+$(window).load = function(){
+  if ($(window).height() > 950) {
+    animatePoints();
   }
 
-  var sellingPoints = document.getElementsByClassName('selling-points')[0];
-  var scrollDistance = sellingPoints.getBoundingClientRect().top - window.innerHeight + 200;
+   var scrollDistance = $('.selling-points').offset().top - $(window).height() + 200;
+
+   $(window).scroll(function(event) {
+     if ($(window).scrollTop() >= scrollDistance) {
+       animatePoints();
+     }
+   });
+});
 
 
-  window.addEventListener('scroll', function(event){
-    if(document.documentElement.scrollTop || document.body.scrollTop >= scrollDistance){
-      animatePoints(pointsArray);
+  $(window).scrollTop() >= scrollDistance){
+      animatePoints();
     }
   });
-};
+});
