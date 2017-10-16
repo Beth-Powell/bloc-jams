@@ -33,7 +33,7 @@
        var songItemNumber = $(this).find('.song-item-number');
        var songNumber = songItemNumber.attr('data-song-number');
 
-         if songNumber !== currentlyPlayingSong) {
+         if (songNumber !== currentlyPlayingSong) {
            songItemNumber.html(playButtonTemplate);
          }
      };
