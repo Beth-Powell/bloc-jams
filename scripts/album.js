@@ -75,13 +75,18 @@ var setCurrentAlbum = function(album) {
       $albumSongList.append($newRow);
   }
 };
+var updatePlayerBarSong = function() {
+    $('.currently-playing .song-name').text(currentSongFromAlbum.title);
+    $('.currently-playing .artist-name').text(currentAlbum.artist);
+    $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
 
+};
 
-var updatePlayerBarSong = function(){
-  var $albumArtist = $('.album-view-artist');
-  $('#h2, .song-item-title').html = currentSongFromAlbum;
-  $('#h2, .artist-song-mobile').html = "$albumArtist" + currentSongFromAlbum;    
-}
+//var updatePlayerBarSong = function(){
+//  var $albumArtist = $('.album-view-artist');
+//  $('#h2, .song-item-title').html = currentSongFromAlbum;
+//  $('#h2, .artist-song-mobile').html = "$albumArtist" + currentSongFromAlbum;
+//};
 
 var albumImage;
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
