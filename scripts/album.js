@@ -20,8 +20,10 @@
 	    if (currentlyPlayingSongNumber !== songNumber) {
 		    // Switch from Play -> Pause button to indicate new song is playing.
 		    $(this).html(pauseButtonTemplate);
+        $('.main-controls .play-pause').html(playerBarPlayButton);
 		    currentlyPlayingSongNumber = songNumber;
         currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+        updatePlayerBarSong();
 
 	    } else if (currentlyPlayingSongNumber === songNumber) {
 		    // Switch from Pause -> Play button to pause currently playing song.
@@ -75,11 +77,35 @@ var setCurrentAlbum = function(album) {
       $albumSongList.append($newRow);
   }
 };
+
+var trackIndex = function(album, song) {
+     return album.songs.indexOf(song);
+};
+
+var nextSong = function(){
+  var previousSong;
+  var albumSongIndex = null;
+    if (trackIndex(album, currentSongFromAlbum) > 0){
+      previousSong = title of album at trackIndex - 1;
+      albumSongIndex = previousSong.indexOf();
+      albumSongIndex ++;
+    }
+    if (trackIndex(album, currentSongFromAlbum) == 0){
+      previousSong = title of album at index at album.length - 1);
+      albumSongIndex = 0;
+      albumSongIndex ++;
+    }
+  currentSongFromAlbum = ("song-item-title") at albumSongIndex;
+  updatePlayerBarSong();
+  $previousSong.html(".song-item-number") change to number stored in data-song-number;
+  songNumberCell.html(playButtonTemplate);  
+};
+
 var updatePlayerBarSong = function() {
     $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
-
+    $('.main-controls .play-pause').html(playerBarPauseButton);
 };
 
 //var updatePlayerBarSong = function(){
@@ -91,7 +117,9 @@ var updatePlayerBarSong = function() {
 var albumImage;
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-var currentlyPlayingSong = null;
+var playerBarPlayButton = '<span class="ion-play"></span>';
+var playerBarPauseButton = '<span class="ion-pause"></span>';
+//var currentlyPlayingSong = null;
 var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
