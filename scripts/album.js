@@ -78,36 +78,90 @@ var setCurrentAlbum = function(album) {
   }
 };
 
+var updatePlayerBarSong = function() {
+
+    $('.currently-playing .song-name').text(currentSongFromAlbum.title);
+    $('.currently-playing .artist-name').text(currentAlbum.artist);
+    $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
+
+};
+
 var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
 };
 
-var nextSong = function(){
-  var previousSong;
-  var albumSongIndex = null;
-    if (trackIndex(album, currentSongFromAlbum) > 0){
-      previousSong = title of album at trackIndex - 1;
-      albumSongIndex = previousSong.indexOf();
-      albumSongIndex ++;
+var nextSong = function() {
+    var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+    // Note that we're _incrementing_ the song here
+    currentSongIndex++;
+
+    if (currentSongIndex >= currentAlbum.songs.length) {
+        currentSongIndex = 0;
     }
-    if (trackIndex(album, currentSongFromAlbum) == 0){
-      previousSong = title of album at index at album.length - 1);
-      albumSongIndex = 0;
-      albumSongIndex ++;
-    }
-  currentSongFromAlbum = ("song-item-title") at albumSongIndex;
-  updatePlayerBarSong();
-  $previousSong.html(".song-item-number") change to number stored in data-song-number;
-  songNumberCell.html(playButtonTemplate);  
+
+    // Save the last song number before changing it
+    var lastSongNumber = currentlyPlayingSongNumber;
+
+    // Set a new current song
+    currentlyPlayingSongNumber = currentSongIndex + 1;
+    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+
+    // Update the Player Bar information
+    updatePlayerBarSong();
+
+    var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+    var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
+
+    $nextSongNumberCell.html(pauseButtonTemplate);
+    $lastSongNumberCell.html(lastSongNumber);
 };
 
-var updatePlayerBarSong = function() {
-    $('.currently-playing .song-name').text(currentSongFromAlbum.title);
-    $('.currently-playing .artist-name').text(currentAlbum.artist);
-    $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
+//var nextSong = function(){
+//  var previousSong;
+//  var albumSongIndex = null;
+//    if (trackIndex(album, currentSongFromAlbum) > 0){
+//      previousSong = title of album at trackIndex - 1;
+//      albumSongIndex = previousSong.indexOf();
+//      albumSongIndex ++;
+//    }
+//    if (trackIndex(album, currentSongFromAlbum) == 0){
+//      previousSong = title of album at index at album.length - 1);
+//      albumSongIndex = 0;
+//      albumSongIndex ++;
+//    }
+//  currentSongFromAlbum = ("song-item-title") at albumSongIndex;
+//  updatePlayerBarSong();
+//  $previousSong.html(".song-item-number") change to number stored in data-song-number;
+//  songNumberCell.html(playButtonTemplate);
+//};
+
+var previousSong = function() {
+    var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+    // Note that we're _decrementing_ the index here
+    currentSongIndex--;
+
+    if (currentSongIndex < 0) {
+        currentSongIndex = currentAlbum.songs.length - 1;
+    }
+
+    // Save the last song number before changing it
+    var lastSongNumber = currentlyPlayingSongNumber;
+
+    // Set a new current song
+    currentlyPlayingSongNumber = currentSongIndex + 1;
+    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+
+    // Update the Player Bar information
+    updatePlayerBarSong();
+
     $('.main-controls .play-pause').html(playerBarPauseButton);
-};
 
+    var $previousSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+    var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
+
+    $previousSongNumberCell.html(pauseButtonTemplate);
+    $lastSongNumberCell.html(lastSongNumber);
+};
 //var updatePlayerBarSong = function(){
 //  var $albumArtist = $('.album-view-artist');
 //  $('#h2, .song-item-title').html = currentSongFromAlbum;
