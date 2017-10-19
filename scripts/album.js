@@ -86,6 +86,12 @@ var updatePlayerBarSong = function() {
 
 };
 
+//var updatePlayerBarSong = function(){
+//  var $albumArtist = $('.album-view-artist');
+//  $('#h2, .song-item-title').html = currentSongFromAlbum;
+//  $('#h2, .artist-song-mobile').html = "$albumArtist" + currentSongFromAlbum;
+//};
+
 var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
 };
@@ -162,11 +168,6 @@ var previousSong = function() {
     $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
 };
-//var updatePlayerBarSong = function(){
-//  var $albumArtist = $('.album-view-artist');
-//  $('#h2, .song-item-title').html = currentSongFromAlbum;
-//  $('#h2, .artist-song-mobile').html = "$albumArtist" + currentSongFromAlbum;
-//};
 
 var albumImage;
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
