@@ -29,7 +29,6 @@ var createSongRow = function(songNumber, songName, songLength) {
 		    $(this).html(pauseButtonTemplate);
 
         //console.log(playerBarPlayButton);
-        $('.main-controls .play-pause').html(playerBarPlayButton);
 //somehow the console log below caused createSongRow to not work at all.
         //console.log($('.main-controls .play-pause'), (playerBarPlayButton));
         //console.log(songNumber);
@@ -42,6 +41,8 @@ var createSongRow = function(songNumber, songName, songLength) {
 	    } else if (currentlyPlayingSongNumber === songNumber) {
 		    // Switch from Pause -> Play button to pause currently playing song.
 		    $(this).html(playButtonTemplate);
+        $('.main-controls .play-pause').html(playerBarPlayButton);
+
 //set to null because song paused.
         currentlyPlayingSongNumber = null;
         currentSongFromAlbum = null;
