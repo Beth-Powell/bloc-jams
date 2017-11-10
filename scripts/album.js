@@ -22,17 +22,19 @@ var createSongRow = function(songNumber, songName, songLength) {
 		    currentlyPlayingCell.html(currentlyPlayingSongNumber);
 	    }
 	    if (currentlyPlayingSongNumber !== songNumber) {
-		    // Switch from Play -> Pause button to indicate new song is playing.
-        // $(this) is the song number <td> and we're replacing the number with the pause icon
-        //call setSong function;
-        setSong(SongNumber);
-
-        //play currentSoundFile;
+        // Switch from Play -> Pause button to indicate new song is playing.
+        setSong(songNumber);
         currentSoundFile.play();
+        // $(this) is the song number <td> and we're replacing the number with the pause icon
 		    $(this).html(pauseButtonTemplate);
+        //console.log(playerBarPlayButton);
+        $('.main-controls .play-pause').html(playerBarPlayButton);
+        //now that the pause button has been activated, the currently playing song number is changed to reflect that
+        currentlyPlayingSongNumber = songNumber;
         //this updates the album array so it reflects the correct index number for the current song
         currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
         updatePlayerBarSong();
+
 	    } else if (currentlyPlayingSongNumber === songNumber) {
 		      if (currentSoundFile.isPaused()){
             //revert icon to play??? in the song row
@@ -198,17 +200,18 @@ var previousSong = function() {
 //function sets current song
 var setSong = function(songNumber){
   //checks to see if currentSoundFile exists other than null, and stops it if so
-  //if (currentSoundFile) {
-  //  currentSoundFile.stop();
-  //}
-  //currentlyPlayingSongNumber = parseInt(songNumber);
-  //currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-  //currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
-  //       formats: [ 'mp3' ],
-  //       preload: true
-  //});
+  if (currentSoundFile) {
+    currentSoundFile.stop();
+  }
+  currentlyPlayingSongNumber = parseInt(songNumber);
+  currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+  currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+         formats: [ 'mp3' ],
+         preload: true
+  });
+  var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
 
-  //setVolume(currentVolume);
+  setVolume(currentVolume);
 
   if (currentlyPlayingSongNumber !== songNumber) {
     //resets SongNumber to reflect song actually playing
