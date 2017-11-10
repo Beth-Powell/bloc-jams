@@ -126,20 +126,13 @@ var updatePlayerBarSong = function() {
     $('.main-controls .play-pause').html(playerBarPauseButton);
 };
 
-//This was my attempt to create the updatePlayerBarSong function
-   //var updatePlayerBarSong = function(){
-   //  var $albumArtist = $('.album-view-artist');
-//if I had made this .txt instead of .html would these next two lines have worked?
-   //  $('.song-item-title').html = currentSongFromAlbum;
-   //  $('.artist-song-mobile').html = "$albumArtist" + currentSongFromAlbum;
-   //};
 
   //function to track index of album and song
 var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
 };
 
-  //function to find the next song by index number
+  //function to find the next song by index number by clicking on the next icon on the player bar
 var nextSong = function() {
     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     // Note that we're _incrementing_ the song here
@@ -160,6 +153,8 @@ var nextSong = function() {
     updatePlayerBarSong();
 
     var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+console.log ($nextSongNumberCell);//it tells me the data-song-number is equal to null
+console.log(currentlyPlayingSongNumber);//this says currentlyPlayingSongNumber is also null
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
 
 //why do these use .html instead of .text? I understand the first but why the second?
@@ -243,6 +238,24 @@ var setVolume = function(volume) {
    }
 };
 
+var togglePlayFromPlayerBar = function(){
+    if (currentSoundFile.isPaused()) {
+    // Switch from Play -> Pause button to indicate new song is playing.
+    currentSoundFile.play();
+    // Changes the song number cell from a play button to a pause button
+    var songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+    songNumberCell.html(pauseButtonTemplate);
+    $('.main-controls .play-pause').html(playerBarPauseButton);
+
+  } else if (currentSoundFile) {
+    //revert icon to play in the song row
+    currentSoundFile.pause();
+    // Changes the song number cell from a pause button to a play button
+    var songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+    songNumberCell.html(playButtonTemplate);
+    $('.main-controls .play-pause').html(playerBarPlayButton);
+  }
+};
 
 
 var albumImage;
@@ -258,11 +271,13 @@ var currentSoundFile = null;
 var currentVolume = 80;
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $mainControlsPlayPause = $('.main-controls .play-pause');
 
 $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
+  $mainControlsPlayPause.click(togglePlayFromPlayerBar);
 });
 
 //   var albums = [albumPicasso, albumMarconi, albumTesla];
