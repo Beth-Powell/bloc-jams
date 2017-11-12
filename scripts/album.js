@@ -153,9 +153,8 @@ var nextSong = function() {
     updatePlayerBarSong();
 
     var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
-console.log ($nextSongNumberCell);//it tells me the data-song-number is equal to null
-console.log(currentlyPlayingSongNumber);//this says currentlyPlayingSongNumber is also null
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
+console.log($nextSongNumberCell);//This keeps returning a value of null, and it should be a number.
 
 //why do these use .html instead of .text? I understand the first but why the second?
     $nextSongNumberCell.html(pauseButtonTemplate);
@@ -206,9 +205,7 @@ var setSong = function(songNumber){
   });
   var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
 
-  setVolume(currentVolume);
-
-  if (currentlyPlayingSongNumber !== songNumber) {
+    if (currentlyPlayingSongNumber !== songNumber) {
     //resets SongNumber to reflect song actually playing
     currentlyPlayingSongNumber = songNumber;
     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
@@ -217,15 +214,17 @@ var setSong = function(songNumber){
     currentlyPlayingSongNumber = null;
     currentSongFromAlbum = null;
 //these next two if statements have the same results. Shouldn't one be different?
-//if the currentSongIndex is on the last song, then what?
-  } if (currentSongIndex >= currentAlbum.songs.length){
-    currentlyPlayingSongNumber = setSong(currentSongIndex + 1);
-    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+  //if the currentSongIndex is on the last song, then what?
+//  } if (currentSongIndex >= currentAlbum.songs.length){
+//how can you call a function within that same function???
+//    currentlyPlayingSongNumber = setSong(currentSongIndex + 1);
+//    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 //how can you have an index less than 0?
-  } else if (currentSongIndex < 0) {
-    currentlyPlayingSongNumber = setSong(currentSongIndex + 1);
-    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+//  } else if (currentSongIndex < 0) {
+//    currentlyPlayingSongNumber = setSong(currentSongIndex + 1);
+//    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
   }
+  setVolume(currentVolume);
 }
 
 var getSongNumberCell = function(number){
