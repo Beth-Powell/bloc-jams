@@ -27,8 +27,7 @@ var createSongRow = function(songNumber, songName, songLength) {
         currentSoundFile.play();
         // $(this) is the song number <td> and we're replacing the number with the pause icon
 		    $(this).html(pauseButtonTemplate);
-        //console.log(playerBarPlayButton);
-        $('.main-controls .play-pause').html(playerBarPlayButton);
+        //$('.main-controls .play-pause').html(playerBarPlayButton);
         //now that the pause button has been activated, the currently playing song number is changed to reflect that
         currentlyPlayingSongNumber = songNumber;
         //this updates the album array so it reflects the correct index number for the current song
@@ -115,7 +114,6 @@ var setCurrentAlbum = function(album) {
 
   //updates the song showing as playing in the bar at bottom
 var updatePlayerBarSong = function() {
-
     //changes out text at the top of the bar for the currentSongFromAlbum title
     $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     //changes out text at the bottom of the bar for the currentAlbum artist
@@ -127,19 +125,17 @@ var updatePlayerBarSong = function() {
 };
 
 
-  //function to track index of album and song
+ //function to track index of album and song
 var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
 };
 
-  //function to find the next song by index number by clicking on the next icon on the player bar
+ //function to find the next song by index number by clicking on the next icon on the player bar
 var nextSong = function() {
     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     // Note that we're _incrementing_ the song here
     currentSongIndex++;
-
-//why didn't this need 2 if statements? One for when the song was at the end of the array and one for all the others.
-    //if index is on last song, then resets index for next song to first song
+      //if index is on last song, then resets index for next song to first song
       if (currentSongIndex >= currentAlbum.songs.length) {
         currentSongIndex = 0;
       }
@@ -149,14 +145,13 @@ var nextSong = function() {
     setSong(currentSongIndex + 1);
     currentSoundFile.play();
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+
     // Update the Player Bar information
     updatePlayerBarSong();
 
     var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
-console.log($nextSongNumberCell);//This keeps returning a value of null, and it should be a number.
 
-//why do these use .html instead of .text? I understand the first but why the second?
     $nextSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
 };
@@ -169,15 +164,12 @@ var previousSong = function() {
     if (currentSongIndex < 0) {
         currentSongIndex = currentAlbum.songs.length - 1;
     }
-
     // Save the last song number before changing it
     var lastSongNumber = currentlyPlayingSongNumber;
-
     // Set a new current song
     setSong(currentSongIndex + 1);
     currentSoundFile.play();
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-
     // Update the Player Bar information
     updatePlayerBarSong();
 
@@ -193,7 +185,7 @@ var previousSong = function() {
 
 //function sets current song
 var setSong = function(songNumber){
-  //checks to see if currentSoundFile exists other than null, and stops it if so
+  //checks to see if currentSoundFile exists other than null, and stops song if so
   if (currentSoundFile) {
     currentSoundFile.stop();
   }
@@ -205,25 +197,6 @@ var setSong = function(songNumber){
   });
   var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
 
-    if (currentlyPlayingSongNumber !== songNumber) {
-    //resets SongNumber to reflect song actually playing
-    currentlyPlayingSongNumber = songNumber;
-    currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-
-  } if (currentlyPlayingSongNumber === songNumber) {
-    currentlyPlayingSongNumber = null;
-    currentSongFromAlbum = null;
-//these next two if statements have the same results. Shouldn't one be different?
-  //if the currentSongIndex is on the last song, then what?
-//  } if (currentSongIndex >= currentAlbum.songs.length){
-//how can you call a function within that same function???
-//    currentlyPlayingSongNumber = setSong(currentSongIndex + 1);
-//    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-//how can you have an index less than 0?
-//  } else if (currentSongIndex < 0) {
-//    currentlyPlayingSongNumber = setSong(currentSongIndex + 1);
-//    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-  }
   setVolume(currentVolume);
 }
 
@@ -239,19 +212,22 @@ var setVolume = function(volume) {
 
 var togglePlayFromPlayerBar = function(){
     if (currentSoundFile.isPaused()) {
-    // Switch from Play -> Pause button to indicate new song is playing.
+    // song is paused, so a play button is visible. Next line starts the current song playing
     currentSoundFile.play();
-    // Changes the song number cell from a play button to a pause button
+    // Changes the song number cell from a play button to a pause button to indicate a song is playing
     var songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     songNumberCell.html(pauseButtonTemplate);
+    // Switch player bar from Play -> Pause button to indicate song is playing.
     $('.main-controls .play-pause').html(playerBarPauseButton);
 
+  //otherwise if a song is playing and icon is clicked,
   } else if (currentSoundFile) {
-    //revert icon to play in the song row
+    //pauses the current song
     currentSoundFile.pause();
-    // Changes the song number cell from a pause button to a play button
+    // Changes the song number cell from a pause button to a play button to indicate song can be clicked to be played again
     var songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     songNumberCell.html(playButtonTemplate);
+    // Switch player bar from Pause -> Play button to indicate song can be started (played) again.
     $('.main-controls .play-pause').html(playerBarPlayButton);
   }
 };
@@ -262,9 +238,9 @@ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 var playerBarPlayButton = '<span class="ion-play"></span>';
 var playerBarPauseButton = '<span class="ion-pause"></span>';
-//var currentlyPlayingSong = null;
+var currentlyPlayingSong = null;
 var currentAlbum = null;
-var currentlyPlayingSongNumber = parseInt(null);
+var currentlyPlayingSongNumber //= parseInt(null);
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
 var currentVolume = 80;
