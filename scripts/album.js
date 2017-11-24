@@ -1,6 +1,6 @@
-// called in someFn
+// called on row 111 in function setCurrentAlbum
 var createSongRow = function(songNumber, songName, songLength) {
-//actually creats the html for SongRow. Later runs through for loop to go through each line.
+//actually creates the html for SongRow. Later runs through for loop to go through each line.
    var template =
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
@@ -10,7 +10,6 @@ var createSongRow = function(songNumber, songName, songLength) {
       ;
     //now $row is same as template.
     var $row = $(template);
-    //console.log(template);
 
     var clickHandler = function() {
     //sets songNumber to always be equal to stored number in data-song-number. parseInt makes sure is always an integer
@@ -36,7 +35,7 @@ var createSongRow = function(songNumber, songName, songLength) {
 
         // $(this) is the song number <td> and we're replacing the number with the pause icon
 		    $(this).html(pauseButtonTemplate);
-        //$('.main-controls .play-pause').html(playerBarPlayButton);
+        $('.main-controls .play-pause').html(playerBarPlayButton);
         //now that the pause button has been activated, the currently playing song number is changed to reflect that
         currentlyPlayingSongNumber = songNumber;
         //this updates the album array so it reflects the correct index number for the current song
@@ -46,14 +45,14 @@ var createSongRow = function(songNumber, songName, songLength) {
 
 	    } else if (currentlyPlayingSongNumber === songNumber) {
 		      if (currentSoundFile.isPaused()){
-            //revert icon to play??? in the song row
+            //revert icon to play in the song row
             $(this).html(pauseButtonTemplate);
             $('.main-controls .play-pause').html(playerBarPauseButton);
             //start playing song again
             currentSoundFile.play();
             updateSeekBarWhileSongPlays();
           }else{
-            //revert icon to pause??? in the song row
+            //revert icon to pause in the song row
             $(this).html(playButtonTemplate);
             //set the player bar pause button back to the play button???
             $('.main-controls .play-pause').html(playerBarPlayButton);
@@ -69,10 +68,10 @@ var createSongRow = function(songNumber, songName, songLength) {
       var songNumberCell = $(this).find('.song-item-number');
       var songNumber = parseInt(songNumberCell.attr('data-song-number'));
 
-      //if song hovered over is NOT the curently playing song, then the number changes to a play icon when hovered over.
+      //if song hovered over is NOT the currently playing song, than the number changes to a play icon when hovered over.
       if (songNumber !== currentlyPlayingSongNumber) {
         songNumberCell.html(playButtonTemplate);
-        //currentSongFromAlbum = ("song-item-title");
+        currentSongFromAlbum = ("song-item-title");
       }
     };
 
@@ -87,11 +86,11 @@ var createSongRow = function(songNumber, songName, songLength) {
     };
 
 //event handlers that activate the clickHandler function
-    $row.find('.song-item-number').click(clickHandler);
+  $row.find('.song-item-number').click(clickHandler);
 //Activates the on and off Hover functions
-    $row.hover(onHover, offHover);
-    return $row;
-    };
+  $row.hover(onHover, offHover);
+  return $row;
+};
 
 var setCurrentAlbum = function(album) {
   currentAlbum = album;
@@ -102,12 +101,9 @@ var setCurrentAlbum = function(album) {
   var $albumSongList = $('.album-view-song-list');
 
   $albumTitle.text(album.title);
-//I couldn't get console.log below to give me anything on console. Why?
-  //console.log($albumTitle);
   $albumArtist.text(album.artist);
   $albumReleaseInfo.text(album.year + ' ' + album.label);
   $albumImage.attr('src', album.albumArtUrl);
-
   $albumSongList.empty();
 
   //this cycles through the songs in the album defined in setCurrentAlbum (currently Picasso) and creates the SongRows.
@@ -116,7 +112,6 @@ var setCurrentAlbum = function(album) {
       $albumSongList.append($newRow);
   }
 };
-
 var updateSeekBarWhileSongPlays = function() {
      if (currentSoundFile) {
          currentSoundFile.bind('timeupdate', function(event) {
@@ -171,11 +166,11 @@ var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
 
       //checks the class of the seek bar's parent to see which is changing
       //if is the song seek bar, then
-      if ()$(this).parent().attr('class') == 'seek-control'){
+      if ($(this).parent().attr('class') == 'seek-control'){
         //seeks the position of the song determined by the seekBarFillRatio;
         seek(seekBarFillRatio * currentSoundFile.getDuration());
       //Otherwise the volume bar is affected
-      }else{
+     } else {
       //update the volume seek bar with the seekBarFillRatio;
         setVolume(seekBarFillRatio * 100);
       }
@@ -203,7 +198,7 @@ var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
 
          //checks the class of the seek bar's parent to see which is changing
          //if is the song seek bar, then
-         if ()$(this).parent().attr('class') == 'seek-control'){
+         if ($(this).parent().attr('class') == 'seek-control'){
            //seeks the position of the song determined by the seekBarFillRatio;
            seek(seekBarFillRatio * currentSoundFile.getDuration());
          //Otherwise the volume bar is affected
@@ -259,7 +254,6 @@ var nextSong = function() {
     currentSoundFile.play();
     updateSeekBarWhileSongPlays();
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-
     // Update the Player Bar information
     updatePlayerBarSong();
 
