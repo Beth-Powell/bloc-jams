@@ -1,11 +1,12 @@
 // called on row 111 in function setCurrentAlbum
 var createSongRow = function(songNumber, songName, songLength) {
 //actually creates the html for SongRow. Later runs through for loop to go through each line.
+  var songLengthInMins = filterTimeCode(songLength);
    var template =
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + songLengthInMins + '</td>'
       + '</tr>'
       ;
     //now $row is same as template.
@@ -112,6 +113,7 @@ var setCurrentAlbum = function(album) {
       $albumSongList.append($newRow);
   }
 };
+
 var updateSeekBarWhileSongPlays = function() {
      if (currentSoundFile) {
          currentSoundFile.bind('timeupdate', function(event) {
@@ -134,6 +136,7 @@ var updateSeekBarWhileSongPlays = function() {
              var $seekBar = $('.seek-control .seek-bar');
 
              updateSeekPercentage($seekBar, seekBarFillRatio);
+             setCurrentTimeInPlayBar(this.getTime());
          });
      }
  };
@@ -217,7 +220,6 @@ var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
          $(document).unbind('mouseup.thumb');
       });
   });
-
 };
 
   //updates the song showing as playing in the bar at bottom
@@ -230,6 +232,8 @@ var updatePlayerBarSong = function() {
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
 
     $('.main-controls .play-pause').html(playerBarPauseButton);
+
+    setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
 };
 
 
@@ -348,6 +352,38 @@ var togglePlayFromPlayerBar = function(){
   }
 };
 
+//sets the text of the element with the .current-time class to the current time in the song
+ var setCurrentTimeInPlayBar = function(currentTime) {
+   var currentTimeInMins = filterTimeCode(currentTime);
+   //console.log (currentTimeInMins);
+     var $songTime = $('.current-time');
+     $songTime.text(currentTimeInMins);
+ }
+
+//takes one argument, totalTime, that sets the text of the
+//element with the .total-time class to the length of the song
+var setTotalTimeInPlayerBar = function(totalTime) {
+//sets the text of the element with the .total-time class to the length of the song.
+  var totalTimeInMins = filterTimeCode(totalTime);
+      var $totalSongTime = $('.total-time');
+    $totalSongTime.text(totalTimeInMins);
+    console.log(totalTimeInMins);
+}
+
+var filterTimeCode = function(timeInSeconds){
+  //Use the parseFloat() method to get the seconds in number form.
+  var sec_num = parseFloat(timeInSeconds);
+  //Store variables for whole seconds and whole minutes (hint: use Math.floor() to round numbers down)
+    var minutes = Math.floor(sec_num / 60);
+    var seconds = Math.floor(sec_num - (minutes * 60));
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+    return minutes + ':' + seconds;
+}
 
 var albumImage;
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
