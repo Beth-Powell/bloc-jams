@@ -201,7 +201,7 @@ var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
 
          //checks the class of the seek bar's parent to see which is changing
          //if is the song seek bar, then
-         if ($(this).parent().attr('class') == 'seek-control'){
+         if ($seekBar.attr('class') == 'seek-control'){
            //seeks the position of the song determined by the seekBarFillRatio;
            seek(seekBarFillRatio * currentSoundFile.getDuration());
          //Otherwise the volume bar is affected
@@ -247,6 +247,8 @@ var nextSong = function() {
     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     // Note that we're _incrementing_ the song here
     currentSongIndex++;
+    console.log(currentSongIndex);
+
       //if index is on last song, then resets index for next song to first song
       if (currentSongIndex >= currentAlbum.songs.length) {
         currentSongIndex = 0;
@@ -367,7 +369,6 @@ var setTotalTimeInPlayerBar = function(totalTime) {
   var totalTimeInMins = filterTimeCode(totalTime);
       var $totalSongTime = $('.total-time');
     $totalSongTime.text(totalTimeInMins);
-    console.log(totalTimeInMins);
 }
 
 var filterTimeCode = function(timeInSeconds){
