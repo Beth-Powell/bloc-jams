@@ -246,8 +246,10 @@ var trackIndex = function(album, song) {
 var nextSong = function() {
     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     // Note that we're _incrementing_ the song here
+    if (currentSongIndex < 0) {
+      currentSongIndex = 0;
+    }
     currentSongIndex++;
-    console.log(currentSongIndex);
 
       //if index is on last song, then resets index for next song to first song
       if (currentSongIndex >= currentAlbum.songs.length) {
